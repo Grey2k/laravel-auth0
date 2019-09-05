@@ -2,6 +2,7 @@
 
 namespace Auth0\Login;
 
+use Auth0\SDK\API\Helpers\State\SessionStateHandler;
 use Config;
 use Auth0\SDK\API\Authentication;
 use Auth0\SDK\Auth0;
@@ -25,6 +26,7 @@ class Auth0Service
       $this->auth0Config = config('laravel-auth0');
 
       $this->auth0Config['store'] = new LaravelSessionStore();
+      $this->auth0Config['state_handler'] = new SessionStateHandler(new LaravelSessionStore());
 
       $this->authApi = new Authentication($this->auth0Config['domain'], $this->auth0Config['client_id']);
 
